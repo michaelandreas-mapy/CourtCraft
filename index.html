@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourtCraft - Attribute Engine</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Kotak Kiri Edit Stats -->
+    <div class="modifier-panel">
+        <div class="panel-header">
+            <h2>⚙️MY PLAYER BUILDER</h2>
+        </div>
+
+        <div class="build-settings">
+            <div class="form-group">
+                <label>Select Archetype</label>
+                <select id="archetype-select">
+                    <option value="" disabled selected>Choose Build</option>
+                    <option value="sharpshooter">Sharpshooter</option>
+                    <option value="slasher">Athletic Slasher</option>
+                    <option value="lockdown">Lockdown Defender</option>
+                    <option value="playmaker">Pure Playmaker</option>
+                </select>
+            </div>
+            
+            <div class="points-container">
+                <span>Available Points: <strong id="points-display">0</strong></span>
+                <button id="btn-roll-points" disabled>🎲 Roll Potential</button>
+            </div>
+        </div>
+
+        <div class="attributes-section">
+            <div class="form-group">
+                <label>Finishing</label>
+                <div class="stat-control">
+                    <button class="btn-minus" data-target="finishing">-</button>
+                    <div class="stat-box" id="finishing-display">0</div>
+                    <button class="btn-plus" data-target="finishing">+</button>
+                    <input type="hidden" id="finishing" value="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Speed</label>
+                <div class="stat-control">
+                    <button class="btn-minus" data-target="speed">-</button>
+                    <div class="stat-box" id="speed-display">0</div>
+                    <button class="btn-plus" data-target="speed">+</button>
+                    <input type="hidden" id="speed" value="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Shooting</label>
+                <div class="stat-control">
+                    <button class="btn-minus" data-target="shooting">-</button>
+                    <div class="stat-box" id="shooting-display">0</div>
+                    <button class="btn-plus" data-target="shooting">+</button>
+                    <input type="hidden" id="shooting" value="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Playmaking</label>
+                <div class="stat-control">
+                    <button class="btn-minus" data-target="playmaking">-</button>
+                    <div class="stat-box" id="playmaking-display">0</div>
+                    <button class="btn-plus" data-target="playmaking">+</button>
+                    <input type="hidden" id="playmaking" value="0">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Defense</label>
+                <div class="stat-control">
+                    <button class="btn-minus" data-target="defense">-</button>
+                    <div class="stat-box" id="defense-display">0</div>
+                    <button class="btn-plus" data-target="defense">+</button>
+                    <input type="hidden" id="defense" value="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Aksesoris -->
+        <div class="accessories-section">
+            <h4 style="margin-bottom: 10px; color: #ff5500;">Cosmetic Overrides</h4>
+            <label class="toggle-box"><input type="checkbox" id="acc-sleeve"> Equip Arm Sleeve</label>
+            <label class="toggle-box"><input type="checkbox" id="acc-headband"> Equip Headband</label>
+        </div>
+    </div>
+
+    <!-- Kotak kanan kartu pemain -->
+    <div class="visual-panel">
+
+        <h3 class="shadestext">Shades of</h3>
+
+        <div class="trading-card" id="player-card">
+            <div class="card-holo-overlay"></div>
+            
+            <div class="card-header">
+                <div class="card-grade" id="card-grade">UNGRADED</div>
+                <div class="card-ovr" id="ovr-display">0</div>
+            </div>
+            
+            <div class="card-image-placeholder">
+                <img id="player-image" src="" alt="Player Photo" style="display: none;">
+                <div class="accessories-display" id="acc-display"></div>
+            </div>
+            
+            <div class="card-footer">
+                <h3 id="nba-player">Unknown Player</h3>
+                <p>Authentic CourtCraft Collection</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

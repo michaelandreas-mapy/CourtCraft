@@ -1,0 +1,238 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+    background: url('./Foto/Basket.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff; 
+    font-family: 'Segoe UI', Tahoma, sans-serif; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.app-container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 900px;
+    background: rgba(0, 0, 0, 0.68);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+}
+
+/* -- Kotak Kiri Edit Stats -- */
+.modifier-panel {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+}
+
+.panel-header h2 { 
+    color: #ff5500; 
+    font-size: 1.2rem; 
+    margin-bottom: 20px; 
+    letter-spacing: 2px; }
+
+.form-group { 
+    margin-bottom: 10px; 
+    margin-top: 8px; }
+
+.form-group label { 
+    display: block; 
+    font-size: 0.9rem; 
+    margin-bottom: 5px; 
+    color: #ccc; }
+
+select { 
+    width: 100%; 
+    padding: 10px; 
+    background: #2a2a2a; 
+    color: white; 
+    border: 1px solid #444; 
+    border-radius: 4px; 
+    cursor: pointer; }
+
+select:focus { 
+    border-color: #f1e900; 
+    outline: none; }
+
+.points-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: #222; 
+    padding: 10px; 
+    border-radius: 4px; 
+    margin-top: 10px; 
+    border: 1px dashed #444; }
+
+.points-container strong { 
+    color: #f39c12; 
+    font-size: 1.2rem; }
+
+#btn-roll-points { background: linear-gradient(90deg, #f39c12, #e97c1d); color: white; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+#btn-roll-points:disabled { background: #333; color: #666; cursor: not-allowed; }
+#btn-roll-points:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 10px rgba(243, 156, 18, 0.5); }
+
+.stat-control { 
+    display: flex; 
+    background: #222; 
+    border-radius: 4px; 
+    overflow: hidden; 
+    border: 1px solid #444; }
+
+.btn-minus, .btn-plus { background: #111; color: #e97c1d; border: none; width: 40px; font-size: 1.2rem; cursor: pointer; transition: 0.2s; }
+.btn-minus:hover, .btn-plus:hover { background: #333; }
+.btn-minus:disabled, .btn-plus:disabled { background: #1a1a1a; color: #444; cursor: not-allowed; }
+.stat-box { flex-grow: 1; text-align: center; font-size: 1.1rem; font-weight: bold; padding: 5px 0; }
+.max-cap-reached { color: #1aab00 !important; }
+
+/* -- Aksesoris -- */
+.accessories-section { margin-top: 20px; padding-top: 15px; border-top: 1px solid #333; }
+.toggle-box { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #aaa; margin-bottom: 8px; cursor: pointer; }
+
+/* --- kotak kanan kartu pemainn --- */
+.visual-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.shadestext {
+    color: white;
+    font-size: 1.2rem;
+    letter-spacing: 4px; 
+    text-transform: uppercase;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.trading-card {
+    width: 320px;
+    height: 450px;
+    background: linear-gradient(135deg, #2c3e50, #000000);
+    border-radius: 15px;
+    border: 8px solid #ddd;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+}
+
+.trading-card:hover { transform: translateY(-5px) scale(1.02); }
+
+/* Efek holo kartu pemain */
+.card-holo-overlay {
+    position: absolute; top: 0; left: 0; width: 200%; height: 200%;
+    background: linear-gradient(45deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 60%);
+    z-index: 10; pointer-events: none; transition: 0.5s;
+    transform: translate(-50%, -50%);
+}
+.trading-card:hover .card-holo-overlay { transform: translate(0%, 0%); }
+
+.card-header { display: flex; justify-content: space-between; padding: 15px; z-index: 2; }
+.card-grade { background: gold; color: black; font-weight: bold; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; letter-spacing: 1px; border: 1px solid #b8860b; }
+.card-ovr { font-size: 2.5rem; font-weight: bold; color: #fff; text-shadow: 2px 2px 0px #000; }
+
+.card-image-placeholder {
+    flex-grow: 1;
+    margin: 0 15px;
+    background: rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-end; 
+    padding-bottom: 20px;
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* -- design gambar pemain -- */
+#player-image {
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+    z-index: 1;
+    transition: opacity 0.5s ease-in-out;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.8));
+}
+
+.accessories-display { 
+    font-size: 0.9rem; 
+    color: #00ffd5; 
+    text-align: center; 
+    z-index: 2; 
+    position: relative;
+    background: rgba(0,0,0,0.6); 
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.player-archetype {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: #bdc3c7; 
+    font-weight: 500;
+    margin-top: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.card-footer { background: rgba(0,0,0,0.8); padding: 15px; text-align: center; border-top: 2px solid gold; z-index: 2; }
+.card-footer h3 { color: #ffffff; margin-bottom: 5px; font-size: 1.4rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); line-height: 1.2; }
+.card-footer p { font-size: 0.7rem; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+
+/* -- warna grade -- */
+.grade-pristine { 
+    background: linear-gradient(45deg, #00f2fe, #4facfe); 
+    color: #fff; 
+    border-color: #00ffff; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+} 
+
+.grade-mint { 
+    background: linear-gradient(45deg, #5b2c6f, #9b59b6); 
+    color: #fff; 
+    border-color: #4a235a; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+} 
+
+.grade-nm { 
+    background: linear-gradient(45deg, #c0392b, #e74c3c); 
+    color: #fff; 
+    border-color: #78281f; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+} 
+
+.grade-ex { 
+    background: linear-gradient(45deg, #154360, #2980b9); 
+    color: #fff; 
+    border-color: #1a5276; 
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); 
+} 
+
+.grade-vg { 
+    background: linear-gradient(45deg, #d4af37, #f1c40f); 
+    color: #000; 
+    border-color: #b8860b; 
+} 
+
+.grade-ungraded { 
+    background: linear-gradient(45deg, #8b4513, #cd7f32); 
+    color: #fff; 
+    border-color: #5c2e0e; 
+}
