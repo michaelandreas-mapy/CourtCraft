@@ -10,6 +10,14 @@ const cardGrade = document.getElementById('card-grade');
 const accDisplay = document.getElementById('acc-display');
 const fotopemain = document.getElementById('player-image');
 
+// Elemen dan Variabel Tambahan untuk Scouting Report
+const playerDescDisplay = document.getElementById('player-description');
+let typeWriterTimeout;
+let lastMatchedPlayer = "";
+
+const scoutingReportBox = document.getElementById('scouting-report-box');
+const scoutingReportTitle = document.getElementById('scouting-report-title');
+
 // ==========================================
 // Data archetype sama database nama file gambar pemain
 // ==========================================
@@ -52,7 +60,28 @@ const databasefoto = {
     "General Defensive Stopper": "Genericdef.png",
     "General Point Guard": "Genericpg.png",
     "General Inside Finisher": "Genericfinisher.png",
+};
 
+// Database scouting report
+const descriptionDatabase = {
+    "Stephen Curry": "Mematikan dari luar garis 3 angka. Bergerak tanpa bola dengan lincah untuk merusak fokus pertahanan. Mampu menciptakan tembakan sendiri dengan cepat.",
+    "Luka Doncic": "Sangat cerdas mengontrol tempo. Mampu mencetak poin dan membagikan umpan magis meski dijaga ketat. Bermain dengan ritme yang sulit ditebak lawan.",
+    "Giannis Antetokounmpo": "Mendominasi area dalam dengan perpaduan tenaga fisik, kecepatan transisi, dan langkah panjang yang tak terhentikan.",
+    "Bam Adebayo": "Pondasi pertahanan yang solid. Cepat saat rotasi menjaga lawan dan andal sebagai penyalur bola di area post.",
+    "De'Aaron Fox": "Mengandalkan kecepatan kilat. Sangat berbahaya dalam serangan balik dan ahli menembus pertahanan menuju ring.",
+    "Marcus Smart": "Bermain dengan intensitas tinggi. Tidak takut melakukan hustle play kotor demi mencuri bola dari tangan lawan.",
+    "Klay Thompson": "Tidak butuh lama memegang bola. Begitu menerima umpan, tembakannya langsung meluncur tajam dan akurat.",
+    "Tyrese Haliburton": "Seorang jenderal lapangan sejati. Visi umpannya selangkah lebih maju dari pertahanan lawan.",
+    "Matisse Thybulle": "Mimpi buruk bagi pencetak poin lawan. Memiliki insting luar biasa untuk menepis tembakan dan memotong jalur umpan.",
+    "Alex Caruso": "Energi yang tak ada habisnya. Bermain sangat cerdas dalam membaca pergerakan lawan dan sering melakukan steal krusial.",
+    "Duncan Robinson": "Pakar berlari mengelilingi pemain besar (screen) hanya untuk mendapatkan ruang sekecil apa pun untuk menembak.",
+    "Kyle Korver": "Legenda spesialis catch-and-shoot. Jika dibiarkan bebas sedikit saja di perimeter, itu sama dengan poin gratis.",
+    "Derrick Jones Jr.": "Sangat atletis. Melayang di udara untuk menyelesaikan umpan alley-oop atau melakukan blok spektakuler.",
+    "General 3PT Specialist": "Fokus utamanya adalah membuka jarak pertahanan lawan dengan ancaman tembakan luar yang mematikan.",
+    "General Defensive Stopper": "Tugas utamanya hanya satu: Menempel ketat dan mematikan pemain terbaik dari tim lawan.",
+    "General Point Guard": "Pengatur ritme. Fokus pada penguasaan bola dan mendistribusikan umpan yang tepat.",
+    "General Inside Finisher": "Tidak peduli dengan tembakan jauh. Hanya mencari poin pasti di area dekat ring.",
+    "Bench Warmer": "Masih butuh banyak sesi latihan sebelum pelatih mempercayakan menit bermain di lapangan utama."
 };
 
 const playerCard = document.getElementById('player-card'); 
@@ -111,37 +140,62 @@ function updatePlayerVisuals(fullPlayerName) {
 // update grade kartu dari OVR
 function updateCardGrade(ovr) {
     cardGrade.className = 'card-grade'; 
+    let themeColor = ""; 
+
     if (ovr >= 95) {
         cardGrade.textContent = "DIAMOND";
         cardGrade.classList.add('grade-pristine');
-        playerCard.style.borderColor = "#00ffff"; 
+        themeColor = "#00ffff"; 
         playerCard.style.boxShadow = "0 0 30px rgba(0, 255, 255, 0.6)"; 
     } else if (ovr >= 90) {
         cardGrade.textContent = "AMETHYST";
         cardGrade.classList.add('grade-mint');
-        playerCard.style.borderColor = "#9b59b6";
+        themeColor = "#9b59b6"; 
         playerCard.style.boxShadow = "0 0 30px rgba(155, 89, 182, 0.6)"; 
     } else if (ovr >= 85) {
         cardGrade.textContent = "RUBY";
         cardGrade.classList.add('grade-nm');
-        playerCard.style.borderColor = "#e74c3c"; 
+        themeColor = "#e74c3c"; 
         playerCard.style.boxShadow = "0 0 30px rgba(231, 76, 60, 0.6)"; 
     } else if (ovr >= 80) {
         cardGrade.textContent = "SAPPHIRE";
         cardGrade.classList.add('grade-ex');
-        playerCard.style.borderColor = "#2980b9"; 
+        themeColor = "#2980b9"; 
         playerCard.style.boxShadow = "0 0 30px rgba(41, 128, 185, 0.6)"; 
     } else if (ovr >= 70) {
         cardGrade.textContent = "GOLD";
         cardGrade.classList.add('grade-vg');
-        playerCard.style.borderColor = "#f1c40f"; 
+        themeColor = "#f1c40f"; 
         playerCard.style.boxShadow = "0 0 30px rgba(241, 196, 15, 0.6)"; 
     } else {
         cardGrade.textContent = "BRONZE";
         cardGrade.classList.add('grade-ungraded');
-        playerCard.style.borderColor = "#cd7f32"; 
+        themeColor = "#cd7f32"; 
         playerCard.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.8)"; 
     }
+
+    // Terapkan warna ke border Kartu Pemain
+    playerCard.style.borderColor = themeColor;
+    
+    // Terapkan warna yang sama ke Scouting Report
+    scoutingReportBox.style.borderLeftColor = themeColor;
+    scoutingReportTitle.style.color = themeColor;
+}
+
+// Fungsi Animasi Mesin Ketik (Typewriter Effect)
+function typeWriterEffect(text, element) {
+    element.textContent = ""; 
+    clearTimeout(typeWriterTimeout); 
+    
+    let i = 0;
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            typeWriterTimeout = setTimeout(type, 20); // 20ms per huruf
+        }
+    }
+    type();
 }
 
 // fungsi untuk menghitung ovr berdasarkan stats yang diinput
@@ -174,15 +228,29 @@ function calculateStats() {
     ovrDisplay.textContent = average;
 
     const playerMatch = determinePlayerMatch(finskor, speedskor, shootskor, playskor, defskor);
+    let nameOnly = playerMatch;
+
     if (playerMatch.includes(" (")) {
         const parts = playerMatch.split(" (");
-        const nameOnly = parts[0]; 
+        nameOnly = parts[0]; 
         const styleOnly = parts[1].replace(")", ""); 
         
         // tambah elemen untuk nampilin style pemain di bawah nama pemain
         nbaPlayerDisplay.innerHTML = `${nameOnly}<br><span class="player-archetype">${styleOnly}</span>`;
     } else {
         nbaPlayerDisplay.innerHTML = playerMatch;
+    }
+
+    // Animasi mesin ketik (ketik ulang kalau pemain berubah)
+    if (nameOnly !== lastMatchedPlayer) {
+        lastMatchedPlayer = nameOnly; 
+        
+        const descText = descriptionDatabase[nameOnly];
+        if (descText) {
+            typeWriterEffect(`"${descText}"`, playerDescDisplay);
+        } else {
+            playerDescDisplay.textContent = "";
+        }
     }
     
     updatePlayerVisuals(playerMatch);

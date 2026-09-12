@@ -16,7 +16,7 @@ body {
     display: flex;
     gap: 30px;
     width: 100%;
-    max-width: 900px;
+    max-width: 1100px; 
     background: rgba(0, 0, 0, 0.68);
     padding: 20px;
     border-radius: 12px;
@@ -97,15 +97,24 @@ select:focus {
 .accessories-section { margin-top: 20px; padding-top: 15px; border-top: 1px solid #333; }
 .toggle-box { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: #aaa; margin-bottom: 8px; cursor: pointer; }
 
-/* --- kotak kanan kartu pemainn --- */
+/* --- kotak kanan untuk card --- */
 .visual-panel {
-    flex: 1;
+    flex: 1.5; 
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+}
+
+.card-section {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 15px;
 }
+
 .shadestext {
     color: white;
     font-size: 1.2rem;
@@ -141,7 +150,7 @@ select:focus {
 .trading-card:hover .card-holo-overlay { transform: translate(0%, 0%); }
 
 .card-header { display: flex; justify-content: space-between; padding: 15px; z-index: 2; }
-.card-grade { background: gold; color: black; font-weight: bold; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; letter-spacing: 1px; border: 1px solid #b8860b; }
+.card-grade { background: white; color: black; font-weight: bold; padding: 5px 10px; border-radius: 4px; font-size: 0.8rem; letter-spacing: 1px; border: 1px solid #b8860b; }
 .card-ovr { font-size: 2.5rem; font-weight: bold; color: #fff; text-shadow: 2px 2px 0px #000; }
 
 .card-image-placeholder {
@@ -194,7 +203,42 @@ select:focus {
 
 .card-footer { background: rgba(0,0,0,0.8); padding: 15px; text-align: center; border-top: 2px solid gold; z-index: 2; }
 .card-footer h3 { color: #ffffff; margin-bottom: 5px; font-size: 1.4rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); line-height: 1.2; }
-.card-footer p { font-size: 0.7rem; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+.card-footer p, .collection-text { font-size: 0.7rem; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+
+/* --- scouting report --- */
+.description-section {
+    width: 320px; 
+    flex-shrink: 0;
+}
+
+.scouting-report {
+    background: rgba(15, 15, 15, 0.85);
+    border: 1px solid #333;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+    border-left: 5px solid white; 
+    transition: all 0.4s ease;
+}
+
+.scouting-report h4 {
+    color: white;
+    font-size: 1rem;
+    margin-top: 0;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    transition: all 0.4s ease;
+    white-space: nowrap;
+}
+
+.player-desc {
+    font-size: 0.95rem;
+    color: #e0e0e0; 
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0;
+    min-height: 100px;
+}
 
 /* -- warna grade -- */
 .grade-pristine { 
@@ -235,4 +279,45 @@ select:focus {
     background: linear-gradient(45deg, #8b4513, #cd7f32); 
     color: #fff; 
     border-color: #5c2e0e; 
+}
+
+/* Buat responsif ukuran */
+@media (max-width: 992px) {
+    .app-container {
+        flex-direction: column; 
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .modifier-panel {
+        width: 100%; 
+    }
+
+    .visual-panel {
+        flex-direction: column; 
+        gap: 25px;
+    }
+
+    .description-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .scouting-report {
+        width: 100%;
+        max-width: 320px; 
+    }
+}
+
+@media (max-width: 400px) {
+    .trading-card {
+        width: 90vw; 
+        height: auto; 
+        aspect-ratio: 2.5 / 3.5; 
+    }
+    
+    .card-ovr {
+        font-size: 2rem; 
+    }
 }
